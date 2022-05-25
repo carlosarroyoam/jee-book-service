@@ -12,6 +12,10 @@ import javax.ws.rs.ext.Provider;
 
 import com.carlosarroyoam.library.dto.APIErrorDto;
 
+/**
+ * An {@link ExceptionMapper} implementation for all
+ * {@link WebApplicationException}s.
+ */
 @Provider
 public class WebApplicationExceptionMapper implements ExceptionMapper<WebApplicationException> {
 	@Override
