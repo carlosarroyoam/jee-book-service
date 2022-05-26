@@ -15,7 +15,8 @@ import javax.ws.rs.ext.Provider;
 import com.carlosarroyoam.library.dto.APIErrorDto;
 
 /**
- * An {@link ExceptionMapper} implementation for all {@link RuntimeException}s.
+ * An {@link ExceptionMapper} implementation for all
+ * {@link ValidationException}s.
  */
 @Provider
 public class ValidationExceptionMapper implements ExceptionMapper<ValidationException> {
