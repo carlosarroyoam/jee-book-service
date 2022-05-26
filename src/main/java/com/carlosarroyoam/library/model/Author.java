@@ -3,6 +3,8 @@ package com.carlosarroyoam.library.model;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -20,6 +22,7 @@ import lombok.ToString;
 @JsonbPropertyOrder({ "id", "name" })
 public class Author {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true)
 	private Long id;
 
