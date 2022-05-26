@@ -20,9 +20,6 @@ public class AuthorResource {
 	public Response findAll() {
 		List<Author> authors = new ArrayList<>();
 
-		authors.add(new Author(1L, "Kapila Bogahapitiya"));
-		authors.add(new Author(2L, "Douglas Adams"));
-
 		return Response.ok(authors).build();
 	}
 }
