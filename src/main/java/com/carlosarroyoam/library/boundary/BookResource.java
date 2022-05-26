@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,7 +24,7 @@ import com.carlosarroyoam.library.model.Author;
 import com.carlosarroyoam.library.model.Book;
 import com.carlosarroyoam.library.service.BookService;
 
-@Path("books")
+@Path("/books")
 @RequestScoped
 public class BookResource {
 	@Inject
@@ -37,13 +39,13 @@ public class BookResource {
 	@GET
 	@Path("/{isbn}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findByIsbn(@PathParam("isbn") String isbn) {
+	public Response findByIsbn(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn) {
 		return Response.ok(bookService.findByIsbn(isbn)).build();
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response store(Book book) {
+	public Response store(@Valid Book book) {
 		Book createdBook = bookService.store(book);
 
 		URI location = UriBuilder.fromResource(BookResource.class).path("/{isbn}")
@@ -54,8 +56,9 @@ public class BookResource {
 
 	@PUT
 	@Path("/{isbn}")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(@PathParam("isbn") String isbn, Book book) {
+	public Response update(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn, @Valid Book book) {
 		Book updatedBook = bookService.update(book, isbn);
 
 		return Response.ok(updatedBook).build();
@@ -63,7 +66,7 @@ public class BookResource {
 
 	@DELETE
 	@Path("/{isbn}")
-	public Response delete(@PathParam("isbn") String isbn) {
+	public Response delete(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn) {
 		bookService.deleteByIsbn(isbn);
 
 		return Response.noContent().build();
@@ -72,10 +75,8 @@ public class BookResource {
 	@GET
 	@Path("/{isbn}/authors")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findBookAuthors(@PathParam("isbn") String isbn) {
+	public Response findBookAuthors(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn) {
 		List<Author> authors = new ArrayList<>();
-
-		authors.add(new Author(1L, "Kapila Bogahapitiya"));
 
 		return Response.ok(authors).build();
 	}
