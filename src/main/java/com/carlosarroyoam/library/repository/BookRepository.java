@@ -23,7 +23,7 @@ public class BookRepository {
 	private EntityManager entityManager;
 
 	/**
-	 * Returns the list of all books in the shelf.
+	 * Retrieves the list of all books.
 	 *
 	 * @return a collection of books
 	 */
@@ -36,7 +36,7 @@ public class BookRepository {
 	}
 
 	/**
-	 * Find the book by its ISBN and return a reference to it.
+	 * Retrieves a book by its ISBN.
 	 *
 	 * @param isbn the ISBN
 	 * @return the book
