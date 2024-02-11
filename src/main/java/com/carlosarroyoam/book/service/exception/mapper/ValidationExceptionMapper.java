@@ -12,7 +12,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.carlosarroyoam.book.service.dto.APIErrorDto;
+import com.carlosarroyoam.book.service.dto.AppExceptionResponse;
 
 /**
  * An {@link ExceptionMapper} implementation for all
@@ -25,7 +25,7 @@ public class ValidationExceptionMapper implements ExceptionMapper<ValidationExce
 
 	@Override
 	public Response toResponse(ValidationException exception) {
-		APIErrorDto apiErrorDto = new APIErrorDto();
+		AppExceptionResponse apiErrorDto = new AppExceptionResponse();
 		Status status = Status.BAD_REQUEST;
 
 		apiErrorDto.setMessage(exception.getMessage());

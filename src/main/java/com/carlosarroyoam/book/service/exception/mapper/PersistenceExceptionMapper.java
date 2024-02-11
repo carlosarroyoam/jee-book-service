@@ -13,7 +13,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.carlosarroyoam.book.service.dto.APIErrorDto;
+import com.carlosarroyoam.book.service.dto.AppExceptionResponse;
 
 /**
  * An {@link ExceptionMapper} implementation for all JPA
@@ -27,7 +27,7 @@ public class PersistenceExceptionMapper implements ExceptionMapper<PersistenceEx
 	@Override
 	public Response toResponse(PersistenceException exception) {
 		if (exception instanceof EntityNotFoundException) {
-			APIErrorDto apiErrorDto = new APIErrorDto();
+			AppExceptionResponse apiErrorDto = new AppExceptionResponse();
 			Status status = Status.NOT_FOUND;
 
 			apiErrorDto.setMessage(exception.getMessage());

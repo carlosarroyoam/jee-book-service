@@ -36,16 +36,14 @@ public class BookDao {
 		return Optional.ofNullable(bookByIsbn);
 	}
 
-	public Book store(Book book) {
+	public void store(Book book) {
 		logger.log(Level.INFO, "Create book: {0}", book);
 		entityManager.persist(book);
-		return book;
 	}
 
-	public Book update(String isbn, Book book) {
-		logger.log(Level.INFO, "Update book with isbn: {0}", isbn);
+	public void update(Book book) {
+		logger.log(Level.INFO, "Update book with isbn: {0}", book.getIsbn());
 		entityManager.merge(book);
-		return book;
 	}
 
 	public void delete(String isbn) {

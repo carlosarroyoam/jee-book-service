@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
+import com.carlosarroyoam.book.service.dto.BookResponse;
 import com.carlosarroyoam.book.service.entity.Author;
 import com.carlosarroyoam.book.service.entity.Book;
 import com.carlosarroyoam.book.service.service.BookService;
@@ -36,7 +37,7 @@ public class BookResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAll() {
-		List<Book> books = bookService.findAll();
+		List<BookResponse> books = bookService.findAll();
 		return Response.ok(books).build();
 	}
 
@@ -44,7 +45,7 @@ public class BookResource {
 	@Path("/{isbn}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findByIsbn(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn) {
-		Book findByIsbn = bookService.findByIsbn(isbn);
+		BookResponse findByIsbn = bookService.findByIsbn(isbn);
 		return Response.ok(findByIsbn).build();
 	}
 
@@ -52,7 +53,7 @@ public class BookResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response store(@Valid Book book) {
-		Book createdBook = bookService.store(book);
+		BookResponse createdBook = bookService.store(book);
 
 		URI location = UriBuilder.fromResource(BookResource.class).path("/{isbn}")
 				.resolveTemplate("isbn", createdBook.getIsbn()).build();
@@ -65,8 +66,7 @@ public class BookResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn, @Valid Book book) {
-		Book updatedBook = bookService.update(isbn, book);
-
+		BookResponse updatedBook = bookService.update(isbn, book);
 		return Response.ok(updatedBook).build();
 	}
 

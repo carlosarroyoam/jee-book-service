@@ -11,7 +11,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.carlosarroyoam.book.service.dto.APIErrorDto;
+import com.carlosarroyoam.book.service.dto.AppExceptionResponse;
 
 /**
  * An {@link ExceptionMapper} implementation for all
@@ -24,7 +24,7 @@ public class WebApplicationExceptionMapper implements ExceptionMapper<WebApplica
 
 	@Override
 	public Response toResponse(WebApplicationException exception) {
-		APIErrorDto apiErrorDto = new APIErrorDto();
+		AppExceptionResponse apiErrorDto = new AppExceptionResponse();
 
 		apiErrorDto.setMessage(exception.getMessage());
 		apiErrorDto.setError(exception.getResponse().getStatusInfo().getReasonPhrase());
