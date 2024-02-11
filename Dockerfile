@@ -1,2 +1,2 @@
 FROM airhacks/glassfish
-COPY ./target/library-service.war ${DEPLOYMENT_DIR}
+COPY ./target/jee-book-service.war ${DEPLOYMENT_DIR}

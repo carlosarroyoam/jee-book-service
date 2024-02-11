@@ -1,4 +1,4 @@
-package com.carlosarroyoam.library.exception.mapper;
+package com.carlosarroyoam.book.service.exception.mapper;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -11,7 +11,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.carlosarroyoam.library.dto.APIErrorDto;
+import com.carlosarroyoam.book.service.dto.APIErrorDto;
 
 /**
  * An {@link ExceptionMapper} implementation for all

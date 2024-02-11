@@ -1,4 +1,4 @@
-package com.carlosarroyoam.library.exception.mapper;
+package com.carlosarroyoam.book.service.exception.mapper;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -13,7 +13,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.carlosarroyoam.library.dto.APIErrorDto;
+import com.carlosarroyoam.book.service.dto.APIErrorDto;
 
 /**
  * An {@link ExceptionMapper} implementation for all JPA
@@ -26,10 +26,10 @@ public class PersistenceExceptionMapper implements ExceptionMapper<PersistenceEx
 
 	@Override
 	public Response toResponse(PersistenceException exception) {
-		APIErrorDto apiErrorDto = new APIErrorDto();
-		Status status = Status.NOT_FOUND;
-
 		if (exception instanceof EntityNotFoundException) {
+			APIErrorDto apiErrorDto = new APIErrorDto();
+			Status status = Status.NOT_FOUND;
+
 			apiErrorDto.setMessage(exception.getMessage());
 			apiErrorDto.setError(status.getReasonPhrase());
 			apiErrorDto.setStatus(status.getStatusCode());

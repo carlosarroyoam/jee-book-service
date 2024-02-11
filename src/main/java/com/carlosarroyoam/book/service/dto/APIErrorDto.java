@@ -1,4 +1,4 @@
-package com.carlosarroyoam.library.dto;
+package com.carlosarroyoam.book.service.dto;
 
 import java.time.ZonedDateTime;
 

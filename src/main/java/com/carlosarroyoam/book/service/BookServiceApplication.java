@@ -1,8 +1,8 @@
-package com.carlosarroyoam.library;
+package com.carlosarroyoam.book.service;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 @ApplicationPath("api")
-public class LibraryServiceApplication extends Application {
+public class BookServiceApplication extends Application {
 }
