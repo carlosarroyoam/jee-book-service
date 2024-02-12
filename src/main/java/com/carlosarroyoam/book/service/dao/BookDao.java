@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
@@ -16,13 +17,11 @@ import com.carlosarroyoam.book.service.entity.Book;
 @Transactional
 public class BookDao {
 
-	private final Logger logger;
-	private final EntityManager entityManager;
+	@Inject
+	private Logger logger;
 
-	public BookDao(Logger logger, EntityManager entityManager) {
-		this.logger = logger;
-		this.entityManager = entityManager;
-	}
+	@Inject
+	private EntityManager entityManager;
 
 	public List<Book> findAll() {
 		logger.info("Find all books");

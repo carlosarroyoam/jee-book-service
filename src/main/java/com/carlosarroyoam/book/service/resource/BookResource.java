@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import javax.ws.rs.Consumes;
@@ -28,11 +29,8 @@ import com.carlosarroyoam.book.service.service.BookService;
 @ApplicationScoped
 public class BookResource {
 
-	private final BookService bookService;
-
-	public BookResource(BookService bookService) {
-		this.bookService = bookService;
-	}
+	@Inject
+	private BookService bookService;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

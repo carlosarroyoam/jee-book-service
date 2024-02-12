@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 
 import com.carlosarroyoam.book.service.constants.AppMessages;
@@ -15,15 +16,14 @@ import com.carlosarroyoam.book.service.mapper.BookMapper;
 @ApplicationScoped
 public class BookService {
 
-	private final Logger logger;
-	private final BookDao bookRepository;
-	private final BookMapper bookMapper;
+	@Inject
+	private Logger logger;
 
-	public BookService(Logger logger, BookDao bookRepository, BookMapper bookMapper) {
-		this.logger = logger;
-		this.bookRepository = bookRepository;
-		this.bookMapper = bookMapper;
-	}
+	@Inject
+	private BookDao bookRepository;
+
+	@Inject
+	private BookMapper bookMapper;
 
 	public List<BookResponse> findAll() {
 		List<Book> books = bookRepository.findAll();
