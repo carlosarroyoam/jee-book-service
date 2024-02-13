@@ -33,7 +33,7 @@ public class BookService {
 	public BookResponse findByIsbn(String isbn) {
 		Book bookByIsbn = bookRepository.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
-			throw new NotFoundException(String.format("Book with isbn: %s was not found", isbn));
+			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
 		});
 
 		return bookMapper.toDto(bookByIsbn);
@@ -47,8 +47,11 @@ public class BookService {
 	public BookResponse update(String isbn, Book book) {
 		Book bookByIsbn = bookRepository.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
-			throw new NotFoundException(String.format("Book with isbn: %s was not found", isbn));
+			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
 		});
+
+		bookByIsbn.setTitle(book.getTitle());
+		bookByIsbn.setAuthor(book.getAuthor());
 
 		bookRepository.update(book);
 		return bookMapper.toDto(book);
@@ -57,7 +60,7 @@ public class BookService {
 	public void deleteByIsbn(String isbn) {
 		Book bookByIsbn = bookRepository.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
-			throw new NotFoundException(String.format("Book with isbn: %s was not found", isbn));
+			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
 		});
 
 		bookRepository.delete(bookByIsbn.getIsbn());
