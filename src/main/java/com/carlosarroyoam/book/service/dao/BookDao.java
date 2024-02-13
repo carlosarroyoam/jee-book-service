@@ -31,7 +31,7 @@ public class BookDao {
 
 	public Optional<Book> findByIsbn(String isbn) {
 		logger.log(Level.INFO, "Find book with isbn: {0}", isbn);
-		Book bookByIsbn = entityManager.find(Book.class, isbn);
+		Book bookByIsbn = entityManager.getReference(Book.class, isbn);
 		return Optional.ofNullable(bookByIsbn);
 	}
 
@@ -47,8 +47,8 @@ public class BookDao {
 
 	public void delete(String isbn) {
 		logger.log(Level.INFO, "Delete book with isbn: {0}", isbn);
-		Book book = entityManager.getReference(Book.class, isbn);
-		entityManager.remove(book);
+		Book bookByIsbn = entityManager.getReference(Book.class, isbn);
+		entityManager.remove(bookByIsbn);
 	}
 
 }
