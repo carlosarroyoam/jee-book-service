@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.NotFoundException;
 
 import com.carlosarroyoam.book.service.constants.AppMessages;
@@ -39,11 +40,13 @@ public class BookService {
 		return bookMapper.toDto(bookByIsbn);
 	}
 
+	@Transactional
 	public BookResponse store(Book book) {
 		bookRepository.store(book);
 		return bookMapper.toDto(book);
 	}
 
+	@Transactional
 	public BookResponse update(String isbn, Book book) {
 		Book bookByIsbn = bookRepository.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
@@ -57,6 +60,7 @@ public class BookService {
 		return bookMapper.toDto(book);
 	}
 
+	@Transactional
 	public void deleteByIsbn(String isbn) {
 		Book bookByIsbn = bookRepository.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);

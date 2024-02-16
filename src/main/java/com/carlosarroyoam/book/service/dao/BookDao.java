@@ -9,12 +9,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 import com.carlosarroyoam.book.service.entity.Book;
 
 @ApplicationScoped
-@Transactional
 public class BookDao {
 
 	@Inject
