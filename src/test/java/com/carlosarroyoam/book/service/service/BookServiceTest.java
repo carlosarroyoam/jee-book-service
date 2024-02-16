@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.carlosarroyoam.book.service.dao.BookDao;
@@ -25,11 +26,11 @@ class BookServiceTest {
 	@Mock
 	private Logger logger;
 
-	@Mock
-	private BookDao bookDao;
+	@Spy
+	private BookMapper bookMapper;
 
 	@Mock
-	private BookMapper bookMapper;
+	private BookDao bookDao;
 
 	@InjectMocks
 	private BookService bookService;
