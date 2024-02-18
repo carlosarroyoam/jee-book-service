@@ -23,10 +23,10 @@ public class Book {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "isbn", unique = true)
+	@Column(name = "isbn", length = 17, unique = true)
 	private String isbn;
 
-	@Column(name = "title", nullable = false)
+	@Column(name = "title", length = 96, nullable = false)
 	private String title;
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -19,7 +19,7 @@ public class Author {
 	@Column(name = "id", unique = true)
 	private Long id;
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", length = 96, nullable = false)
 	private String name;
 
 }
