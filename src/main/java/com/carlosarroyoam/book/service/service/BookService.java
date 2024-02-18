@@ -67,7 +67,7 @@ public class BookService {
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
 		});
 
-		bookRepository.delete(bookByIsbn.getIsbn());
+		bookRepository.deleteByIsbn(bookByIsbn.getIsbn());
 	}
 
 }

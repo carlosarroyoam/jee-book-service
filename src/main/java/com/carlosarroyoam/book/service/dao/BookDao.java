@@ -43,7 +43,7 @@ public class BookDao {
 		entityManager.merge(book);
 	}
 
-	public void delete(String isbn) {
+	public void deleteByIsbn(String isbn) {
 		logger.log(Level.INFO, "Delete book with isbn: {0}", isbn);
 		Book bookByIsbn = entityManager.getReference(Book.class, isbn);
 		entityManager.remove(bookByIsbn);

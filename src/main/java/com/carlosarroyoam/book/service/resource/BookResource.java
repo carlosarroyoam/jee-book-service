@@ -70,7 +70,7 @@ public class BookResource {
 
 	@DELETE
 	@Path("/{isbn}")
-	public Response delete(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn) {
+	public Response deleteByIsbn(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn) {
 		bookService.deleteByIsbn(isbn);
 		return Response.noContent().build();
 	}
