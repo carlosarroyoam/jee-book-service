@@ -26,7 +26,7 @@ public class Book {
 	@Column(name = "isbn", length = 17, unique = true)
 	private String isbn;
 
-	@Column(name = "title", length = 96, nullable = false)
+	@Column(name = "title", length = 128, nullable = false)
 	private String title;
 
 	@ManyToOne(fetch = FetchType.LAZY)
