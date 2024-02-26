@@ -1,12 +1,22 @@
 package com.carlosarroyoam.book.service.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import lombok.Data;
 
 @Data
 public class BookResponse {
 
+	private Long id;
 	private String isbn;
 	private String title;
-	private AuthorResponse author;
+	private List<AuthorResponse> authors;
+	private Double price;
+	private boolean isAvailableOnline;
+	private LocalDate publishedAt;
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 
 }

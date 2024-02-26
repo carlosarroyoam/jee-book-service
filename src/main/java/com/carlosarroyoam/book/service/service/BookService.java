@@ -1,5 +1,6 @@
 package com.carlosarroyoam.book.service.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -42,6 +43,9 @@ public class BookService {
 
 	@Transactional
 	public BookResponse store(Book book) {
+		book.setCreatedAt(LocalDateTime.now());
+		book.setUpdatedAt(LocalDateTime.now());
+
 		bookRepository.store(book);
 		return bookMapper.toDto(book);
 	}
@@ -54,7 +58,9 @@ public class BookService {
 		});
 
 		bookByIsbn.setTitle(book.getTitle());
-		bookByIsbn.setAuthor(book.getAuthor());
+		bookByIsbn.setAvailableOnline(book.isAvailableOnline());
+		bookByIsbn.setPublishedAt(book.getPublishedAt());
+		bookByIsbn.setUpdatedAt(LocalDateTime.now());
 
 		bookRepository.update(book);
 		return bookMapper.toDto(book);
