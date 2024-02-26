@@ -10,14 +10,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.Data;
 
 @Entity
 @Table(name = "authors")
+@NamedQuery(name = Author.FIND_ALL, query = "SELECT a FROM Author a")
 @Data
 public class Author {
+
+	public static final String FIND_ALL = "Author.findAll";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

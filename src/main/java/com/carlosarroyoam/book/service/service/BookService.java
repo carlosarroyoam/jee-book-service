@@ -22,18 +22,18 @@ public class BookService {
 	private Logger logger;
 
 	@Inject
-	private BookDao bookRepository;
+	private BookDao bookDao;
 
 	@Inject
 	private BookMapper bookMapper;
 
 	public List<BookResponse> findAll() {
-		List<Book> books = bookRepository.findAll();
+		List<Book> books = bookDao.findAll();
 		return bookMapper.toDtos(books);
 	}
 
 	public BookResponse findByIsbn(String isbn) {
-		Book bookByIsbn = bookRepository.findByIsbn(isbn).orElseThrow(() -> {
+		Book bookByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
 		});
@@ -43,37 +43,39 @@ public class BookService {
 
 	@Transactional
 	public BookResponse store(Book book) {
-		book.setCreatedAt(LocalDateTime.now());
-		book.setUpdatedAt(LocalDateTime.now());
+		LocalDateTime now = LocalDateTime.now();
+		book.setCreatedAt(now);
+		book.setUpdatedAt(now);
 
-		bookRepository.store(book);
+		bookDao.store(book);
 		return bookMapper.toDto(book);
 	}
 
 	@Transactional
 	public BookResponse update(String isbn, Book book) {
-		Book bookByIsbn = bookRepository.findByIsbn(isbn).orElseThrow(() -> {
+		Book bookByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
 		});
 
 		bookByIsbn.setTitle(book.getTitle());
+		bookByIsbn.setPrice(book.getPrice());
 		bookByIsbn.setAvailableOnline(book.isAvailableOnline());
 		bookByIsbn.setPublishedAt(book.getPublishedAt());
 		bookByIsbn.setUpdatedAt(LocalDateTime.now());
 
-		bookRepository.update(book);
+		bookDao.update(book);
 		return bookMapper.toDto(book);
 	}
 
 	@Transactional
 	public void deleteByIsbn(String isbn) {
-		Book bookByIsbn = bookRepository.findByIsbn(isbn).orElseThrow(() -> {
+		Book bookByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
 		});
 
-		bookRepository.deleteByIsbn(bookByIsbn.getIsbn());
+		bookDao.deleteByIsbn(bookByIsbn.getIsbn());
 	}
 
 }

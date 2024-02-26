@@ -7,6 +7,9 @@ public class AppMessages {
 	public static final String BOOK_NOT_FOUND_EXCEPTION = "Book not found";
 	public static final String BOOK_NOT_FOUND_WITH_ISBN = "Book with isbn: %s was not found";
 
+	public static final String AUTHOR_NOT_FOUND_EXCEPTION = "Author not found";
+	public static final String AUTHOR_NOT_FOUND_WITH_ID = "Author with id: %s was not found";
+
 	private AppMessages() {
 		throw new IllegalAccessError(STANDARD_ILLEGAL_ACCESS_EXCEPTION_MESSAGE_UTILITY_CLASS);
 	}
