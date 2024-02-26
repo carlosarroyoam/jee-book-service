@@ -43,8 +43,8 @@ public class BookResource {
 	@Path("/{isbn}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findByIsbn(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn) {
-		BookResponse findByIsbn = bookService.findByIsbn(isbn);
-		return Response.ok(findByIsbn).build();
+		BookResponse bookByIsbn = bookService.findByIsbn(isbn);
+		return Response.ok(bookByIsbn).build();
 	}
 
 	@POST

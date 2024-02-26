@@ -33,12 +33,12 @@ public class BookService {
 	}
 
 	public BookResponse findByIsbn(String isbn) {
-		Book findByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
+		Book bookByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
 		});
 
-		return bookMapper.toDto(findByIsbn);
+		return bookMapper.toDto(bookByIsbn);
 	}
 
 	@Transactional
@@ -53,16 +53,16 @@ public class BookService {
 
 	@Transactional
 	public BookResponse update(String isbn, Book book) {
-		Book findByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
+		Book bookByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
 		});
 
-		findByIsbn.setTitle(book.getTitle());
-		findByIsbn.setPrice(book.getPrice());
-		findByIsbn.setAvailableOnline(book.isAvailableOnline());
-		findByIsbn.setPublishedAt(book.getPublishedAt());
-		findByIsbn.setUpdatedAt(LocalDateTime.now());
+		bookByIsbn.setTitle(book.getTitle());
+		bookByIsbn.setPrice(book.getPrice());
+		bookByIsbn.setAvailableOnline(book.isAvailableOnline());
+		bookByIsbn.setPublishedAt(book.getPublishedAt());
+		bookByIsbn.setUpdatedAt(LocalDateTime.now());
 
 		bookDao.update(book);
 		return bookMapper.toDto(book);
@@ -70,12 +70,12 @@ public class BookService {
 
 	@Transactional
 	public void deleteByIsbn(String isbn) {
-		Book findByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
+		Book bookByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
 		});
 
-		bookDao.deleteByIsbn(findByIsbn.getIsbn());
+		bookDao.deleteByIsbn(bookByIsbn.getIsbn());
 	}
 
 }

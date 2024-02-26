@@ -31,12 +31,12 @@ public class AuthorService {
 	}
 
 	public AuthorResponse findById(Long authorId) {
-		Author findById = authorDao.findById(authorId).orElseThrow(() -> {
+		Author authorById = authorDao.findById(authorId).orElseThrow(() -> {
 			logger.warning(AppMessages.AUTHOR_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.AUTHOR_NOT_FOUND_WITH_ID, authorId));
 		});
 
-		return authorMapper.toDto(findById);
+		return authorMapper.toDto(authorById);
 	}
 
 }

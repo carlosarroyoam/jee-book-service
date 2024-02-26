@@ -32,8 +32,8 @@ public class AuthorResource {
 	@Path("/{authorId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findByIsbn(@PathParam("authorId") Long authorId) {
-		AuthorResponse findById = authorService.findById(authorId);
-		return Response.ok(findById).build();
+		AuthorResponse authorById = authorService.findById(authorId);
+		return Response.ok(authorById).build();
 	}
 
 }
