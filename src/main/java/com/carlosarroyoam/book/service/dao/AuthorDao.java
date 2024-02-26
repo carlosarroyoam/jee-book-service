@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import com.carlosarroyoam.book.service.entity.Author;
-import com.carlosarroyoam.book.service.entity.Book;
 
 @ApplicationScoped
 public class AuthorDao {
@@ -24,7 +23,7 @@ public class AuthorDao {
 
 	public List<Author> findAll() {
 		logger.info("Find all authors");
-		TypedQuery<Author> query = entityManager.createNamedQuery(Book.FIND_ALL, Author.class);
+		TypedQuery<Author> query = entityManager.createNamedQuery(Author.FIND_ALL, Author.class);
 		return query.getResultList();
 	}
 
