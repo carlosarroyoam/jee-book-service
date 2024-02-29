@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotFoundException;
 
-import com.carlosarroyoam.book.service.constants.AppMessages;
+import com.carlosarroyoam.book.service.constant.AppMessages;
 import com.carlosarroyoam.book.service.dao.BookDao;
 import com.carlosarroyoam.book.service.dto.BookResponse;
 import com.carlosarroyoam.book.service.entity.Book;

@@ -7,7 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 
-import com.carlosarroyoam.book.service.constants.AppMessages;
+import com.carlosarroyoam.book.service.constant.AppMessages;
 import com.carlosarroyoam.book.service.dao.AuthorDao;
 import com.carlosarroyoam.book.service.dto.AuthorResponse;
 import com.carlosarroyoam.book.service.entity.Author;

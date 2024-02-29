@@ -1,4 +1,4 @@
-package com.carlosarroyoam.book.service.producers;
+package com.carlosarroyoam.book.service.producer;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
