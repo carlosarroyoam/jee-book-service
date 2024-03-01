@@ -49,28 +49,24 @@ public class BookResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response store(@Valid Book book) {
 		BookResponse createdBook = bookService.store(book);
-
-		URI location = UriBuilder.fromResource(BookResource.class).path("/{isbn}")
+		URI locationUri = UriBuilder.fromResource(BookResource.class).path("/{isbn}")
 				.resolveTemplate("isbn", createdBook.getIsbn()).build();
-
-		return Response.created(location).entity(createdBook).build();
+		return Response.created(locationUri).build();
 	}
 
 	@PUT
 	@Path("/{isbn}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn, @Valid Book book) {
-		BookResponse updatedBook = bookService.update(isbn, book);
-		return Response.ok(updatedBook).build();
+	public Response update(@Valid @Pattern(regexp = "[\\d]{10}") @PathParam("isbn") String isbn, @Valid Book book) {
+		bookService.update(isbn, book);
+		return Response.noContent().build();
 	}
 
 	@DELETE
 	@Path("/{isbn}")
-	public Response deleteByIsbn(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn) {
+	public Response deleteByIsbn(@Valid @Pattern(regexp = "[\\d]{10}") @PathParam("isbn") String isbn) {
 		bookService.deleteByIsbn(isbn);
 		return Response.noContent().build();
 	}
@@ -78,7 +74,7 @@ public class BookResource {
 	@GET
 	@Path("/{isbn}/authors")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findBookAuthors(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn) {
+	public Response findBookAuthors(@Valid @Pattern(regexp = "[\\d]{10}") @PathParam("isbn") String isbn) {
 		List<Author> authors = new ArrayList<>();
 		return Response.ok(authors).build();
 	}

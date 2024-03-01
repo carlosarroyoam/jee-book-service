@@ -52,7 +52,7 @@ public class BookService {
 	}
 
 	@Transactional
-	public BookResponse update(String isbn, Book book) {
+	public void update(String isbn, Book book) {
 		Book bookByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
@@ -65,7 +65,6 @@ public class BookService {
 		bookByIsbn.setUpdatedAt(LocalDateTime.now());
 
 		bookDao.update(book);
-		return bookMapper.toDto(book);
 	}
 
 	@Transactional
