@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.carlosarroyoam.book.service.dto.AuthorResponse;
+import com.carlosarroyoam.book.service.dto.BookResponse;
 import com.carlosarroyoam.book.service.service.AuthorService;
 
 @Path("/authors")
@@ -34,6 +35,14 @@ public class AuthorResource {
 	public Response findByIsbn(@PathParam("authorId") Long authorId) {
 		AuthorResponse authorById = authorService.findById(authorId);
 		return Response.ok(authorById).build();
+	}
+
+	@GET
+	@Path("/{authorId}/books")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findBookAuthors(@PathParam("authorId") Long authorId) {
+		List<BookResponse> books = authorService.findBooksByAuthorId(authorId);
+		return Response.ok(books).build();
 	}
 
 }

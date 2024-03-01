@@ -11,8 +11,10 @@ import javax.ws.rs.NotFoundException;
 
 import com.carlosarroyoam.book.service.constant.AppMessages;
 import com.carlosarroyoam.book.service.dao.BookDao;
+import com.carlosarroyoam.book.service.dto.AuthorResponse;
 import com.carlosarroyoam.book.service.dto.BookResponse;
 import com.carlosarroyoam.book.service.entity.Book;
+import com.carlosarroyoam.book.service.mapper.AuthorMapper;
 import com.carlosarroyoam.book.service.mapper.BookMapper;
 
 @ApplicationScoped
@@ -26,6 +28,9 @@ public class BookService {
 
 	@Inject
 	private BookMapper bookMapper;
+
+	@Inject
+	private AuthorMapper authorMapper;
 
 	public List<BookResponse> findAll() {
 		List<Book> books = bookDao.findAll();
@@ -75,6 +80,15 @@ public class BookService {
 		});
 
 		bookDao.deleteByIsbn(bookByIsbn.getIsbn());
+	}
+
+	public List<AuthorResponse> findAuthorsByBookIsbn(String isbn) {
+		Book bookByIsbn = bookDao.findByIsbn(isbn).orElseThrow(() -> {
+			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
+			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ISBN, isbn));
+		});
+
+		return authorMapper.toDtos(bookByIsbn.getAuthors());
 	}
 
 }

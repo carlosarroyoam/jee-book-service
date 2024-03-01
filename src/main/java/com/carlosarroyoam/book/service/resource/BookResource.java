@@ -1,7 +1,6 @@
 package com.carlosarroyoam.book.service.resource;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -20,8 +19,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
+import com.carlosarroyoam.book.service.dto.AuthorResponse;
 import com.carlosarroyoam.book.service.dto.BookResponse;
-import com.carlosarroyoam.book.service.entity.Author;
 import com.carlosarroyoam.book.service.entity.Book;
 import com.carlosarroyoam.book.service.service.BookService;
 
@@ -75,7 +74,7 @@ public class BookResource {
 	@Path("/{isbn}/authors")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findBookAuthors(@Valid @Pattern(regexp = "[\\d]{10}") @PathParam("isbn") String isbn) {
-		List<Author> authors = new ArrayList<>();
+		List<AuthorResponse> authors = bookService.findAuthorsByBookIsbn(isbn);
 		return Response.ok(authors).build();
 	}
 
