@@ -6,7 +6,6 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,7 +20,8 @@ import javax.ws.rs.core.UriBuilder;
 
 import com.carlosarroyoam.book.service.dto.AuthorResponse;
 import com.carlosarroyoam.book.service.dto.BookResponse;
-import com.carlosarroyoam.book.service.entity.Book;
+import com.carlosarroyoam.book.service.dto.CreateBookRequest;
+import com.carlosarroyoam.book.service.dto.UpdateBookRequest;
 import com.carlosarroyoam.book.service.service.BookService;
 
 @Path("/books")
@@ -39,42 +39,42 @@ public class BookResource {
 	}
 
 	@GET
-	@Path("/{isbn}")
+	@Path("/{bookId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findByIsbn(@Valid @Pattern(regexp = "[0-9]{10}") @PathParam("isbn") String isbn) {
-		BookResponse bookByIsbn = bookService.findByIsbn(isbn);
-		return Response.ok(bookByIsbn).build();
+	public Response findByIsbn(@PathParam("bookId") Long bookId) {
+		BookResponse bookById = bookService.findByIsbn(bookId);
+		return Response.ok(bookById).build();
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response store(@Valid Book book) {
-		BookResponse createdBook = bookService.store(book);
-		URI locationUri = UriBuilder.fromResource(BookResource.class).path("/{isbn}")
-				.resolveTemplate("isbn", createdBook.getIsbn()).build();
+	public Response store(@Valid CreateBookRequest createBookRequest) {
+		BookResponse createdBook = bookService.store(createBookRequest);
+		URI locationUri = UriBuilder.fromResource(BookResource.class).path("/{bookId}")
+				.resolveTemplate("bookId", createdBook.getId()).build();
 		return Response.created(locationUri).build();
 	}
 
 	@PUT
-	@Path("/{isbn}")
+	@Path("/{bookId}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(@Valid @Pattern(regexp = "[\\d]{10}") @PathParam("isbn") String isbn, @Valid Book book) {
-		bookService.update(isbn, book);
+	public Response update(@PathParam("bookId") Long bookId, @Valid UpdateBookRequest updateBookRequest) {
+		bookService.update(bookId, updateBookRequest);
 		return Response.noContent().build();
 	}
 
 	@DELETE
-	@Path("/{isbn}")
-	public Response deleteByIsbn(@Valid @Pattern(regexp = "[\\d]{10}") @PathParam("isbn") String isbn) {
-		bookService.deleteByIsbn(isbn);
+	@Path("/{bookId}")
+	public Response deleteByIsbn(@PathParam("bookId") Long bookId) {
+		bookService.deleteById(bookId);
 		return Response.noContent().build();
 	}
 
 	@GET
-	@Path("/{isbn}/authors")
+	@Path("/{bookId}/authors")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findBookAuthors(@Valid @Pattern(regexp = "[\\d]{10}") @PathParam("isbn") String isbn) {
-		List<AuthorResponse> authors = bookService.findAuthorsByBookIsbn(isbn);
+	public Response findBookAuthors(@PathParam("bookId") Long bookId) {
+		List<AuthorResponse> authors = bookService.findAuthorsByBookId(bookId);
 		return Response.ok(authors).build();
 	}
 

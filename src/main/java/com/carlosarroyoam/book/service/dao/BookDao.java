@@ -27,10 +27,21 @@ public class BookDao {
 		return query.getResultList();
 	}
 
+	public Optional<Book> findById(Long bookId) {
+		logger.log(Level.INFO, "Find book with id: {0}", bookId);
+		Book bookById = entityManager.find(Book.class, bookId);
+		return Optional.ofNullable(bookById);
+	}
+
 	public Optional<Book> findByIsbn(String isbn) {
 		logger.log(Level.INFO, "Find book with isbn: {0}", isbn);
-		Book bookByIsbn = entityManager.find(Book.class, isbn);
-		return Optional.ofNullable(bookByIsbn);
+		TypedQuery<Book> query = entityManager.createNamedQuery(Book.FIND_BY_ISBN, Book.class);
+		List<Book> results = query.setParameter("isbn", isbn).getResultList();
+
+		if (results.isEmpty())
+			return Optional.empty();
+
+		return Optional.of(results.get(0));
 	}
 
 	public void store(Book book) {
@@ -43,10 +54,10 @@ public class BookDao {
 		entityManager.merge(book);
 	}
 
-	public void deleteByIsbn(String isbn) {
-		logger.log(Level.INFO, "Delete book with isbn: {0}", isbn);
-		Book bookByIsbn = entityManager.getReference(Book.class, isbn);
-		entityManager.remove(bookByIsbn);
+	public void deleteById(Long bookId) {
+		logger.log(Level.INFO, "Delete book with id: {0}", bookId);
+		Book bookById = entityManager.getReference(Book.class, bookId);
+		entityManager.remove(bookById);
 	}
 
 }

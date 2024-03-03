@@ -22,14 +22,18 @@ import lombok.Data;
 @Entity
 @Table(name = "books")
 @NamedQuery(name = Book.FIND_ALL, query = "SELECT b FROM Book b")
+@NamedQuery(name = Book.FIND_BY_ISBN, query = "SELECT b FROM Book b WHERE b.isbn = :isbn")
 @Data
 public class Book {
 
 	public static final String FIND_ALL = "Book.findAll";
+	public static final String FIND_BY_ISBN = "Book.findByIsbn";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "isbn", length = 17, unique = true)
+	private Long id;
+
+	@Column(name = "isbn", length = 17, nullable = false)
 	private String isbn;
 
 	@Column(name = "title", length = 128, nullable = false)
@@ -39,7 +43,7 @@ public class Book {
 	private BigDecimal price;
 
 	@Column(name = "is_available_online", nullable = false)
-	private boolean isAvailableOnline;
+	private Boolean isAvailableOnline;
 
 	@ManyToMany
 	@JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
