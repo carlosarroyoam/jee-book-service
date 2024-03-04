@@ -41,7 +41,7 @@ public class BookResource {
 	@GET
 	@Path("/{bookId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findByIsbn(@PathParam("bookId") Long bookId) {
+	public Response findById(@PathParam("bookId") Long bookId) {
 		BookResponse bookById = bookService.findById(bookId);
 		return Response.ok(bookById).build();
 	}
@@ -65,7 +65,7 @@ public class BookResource {
 
 	@DELETE
 	@Path("/{bookId}")
-	public Response deleteByIsbn(@PathParam("bookId") Long bookId) {
+	public Response deleteById(@PathParam("bookId") Long bookId) {
 		bookService.deleteById(bookId);
 		return Response.noContent().build();
 	}
