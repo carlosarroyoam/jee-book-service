@@ -24,8 +24,7 @@ public class Author {
 	public static final String FIND_ALL = "Author.findAll";
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name = "name", length = 128, nullable = false)

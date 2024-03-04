@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
@@ -40,17 +39,16 @@ public class BookService {
 		return bookMapper.toDtos(books);
 	}
 
-	public BookResponse findByIsbn(Long bookId) {
-		Book bookByIsbn = bookDao.findById(bookId).orElseThrow(() -> {
+	public BookResponse findById(Long bookId) {
+		Book bookById = bookDao.findById(bookId).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
 		});
 
-		return bookMapper.toDto(bookByIsbn);
+		return bookMapper.toDto(bookById);
 	}
 
-	@Transactional
-	public BookResponse store(CreateBookRequest createBookRequest) {
+	public BookResponse create(CreateBookRequest createBookRequest) {
 		boolean existsByIsbn = bookDao.findByIsbn(createBookRequest.getIsbn()).isPresent();
 		if (existsByIsbn) {
 			logger.warning(AppMessages.ISBN_ALREADY_EXISTS_EXCEPTION);
@@ -62,43 +60,41 @@ public class BookService {
 		book.setCreatedAt(now);
 		book.setUpdatedAt(now);
 
-		bookDao.store(book);
+		bookDao.create(book);
 		return bookMapper.toDto(book);
 	}
 
-	@Transactional
 	public void update(Long bookId, UpdateBookRequest updateBookRequest) {
-		Book bookByIsbn = bookDao.findById(bookId).orElseThrow(() -> {
+		Book bookById = bookDao.findById(bookId).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
 		});
 
-		bookByIsbn.setTitle(updateBookRequest.getTitle());
-		bookByIsbn.setPrice(updateBookRequest.getPrice());
-		bookByIsbn.setIsAvailableOnline(updateBookRequest.getIsAvailableOnline());
-		bookByIsbn.setPublishedAt(updateBookRequest.getPublishedAt());
-		bookByIsbn.setUpdatedAt(LocalDateTime.now());
+		bookById.setTitle(updateBookRequest.getTitle());
+		bookById.setPrice(updateBookRequest.getPrice());
+		bookById.setIsAvailableOnline(updateBookRequest.getIsAvailableOnline());
+		bookById.setPublishedAt(updateBookRequest.getPublishedAt());
+		bookById.setUpdatedAt(LocalDateTime.now());
 
-		bookDao.update(bookByIsbn);
+		bookDao.update(bookById);
 	}
 
-	@Transactional
 	public void deleteById(Long bookId) {
-		Book bookByIsbn = bookDao.findById(bookId).orElseThrow(() -> {
+		Book bookById = bookDao.findById(bookId).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
 		});
 
-		bookDao.deleteById(bookByIsbn.getId());
+		bookDao.deleteById(bookById.getId());
 	}
 
 	public List<AuthorResponse> findAuthorsByBookId(Long bookId) {
-		Book bookByIsbn = bookDao.findById(bookId).orElseThrow(() -> {
+		Book bookById = bookDao.findById(bookId).orElseThrow(() -> {
 			logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
 			throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
 		});
 
-		return authorMapper.toDtos(bookByIsbn.getAuthors());
+		return authorMapper.toDtos(bookById.getAuthors());
 	}
 
 }

@@ -42,14 +42,14 @@ public class BookResource {
 	@Path("/{bookId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findByIsbn(@PathParam("bookId") Long bookId) {
-		BookResponse bookById = bookService.findByIsbn(bookId);
+		BookResponse bookById = bookService.findById(bookId);
 		return Response.ok(bookById).build();
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response store(@Valid CreateBookRequest createBookRequest) {
-		BookResponse createdBook = bookService.store(createBookRequest);
+		BookResponse createdBook = bookService.create(createBookRequest);
 		URI locationUri = UriBuilder.fromResource(BookResource.class).path("/{bookId}")
 				.resolveTemplate("bookId", createdBook.getId()).build();
 		return Response.created(locationUri).build();

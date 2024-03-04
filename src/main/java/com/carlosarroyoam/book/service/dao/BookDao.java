@@ -44,20 +44,50 @@ public class BookDao {
 		return Optional.of(results.get(0));
 	}
 
-	public void store(Book book) {
-		logger.log(Level.INFO, "Create book: {0}", book);
-		entityManager.persist(book);
+	public void create(Book book) {
+		try {
+			logger.log(Level.INFO, "Create book: {0}", book);
+			entityManager.getTransaction().begin();
+			entityManager.persist(book);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			if (entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+			}
+
+			throw e;
+		}
 	}
 
 	public void update(Book book) {
-		logger.log(Level.INFO, "Update book with isbn: {0}", book.getIsbn());
-		entityManager.merge(book);
+		try {
+			logger.log(Level.INFO, "Update book with isbn: {0}", book.getIsbn());
+			entityManager.getTransaction().begin();
+			entityManager.merge(book);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			if (entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+			}
+
+			throw e;
+		}
 	}
 
 	public void deleteById(Long bookId) {
-		logger.log(Level.INFO, "Delete book with id: {0}", bookId);
-		Book bookById = entityManager.getReference(Book.class, bookId);
-		entityManager.remove(bookById);
+		try {
+			logger.log(Level.INFO, "Delete book with id: {0}", bookId);
+			entityManager.getTransaction().begin();
+			Book bookById = entityManager.getReference(Book.class, bookId);
+			entityManager.remove(bookById);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			if (entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+			}
+
+			throw e;
+		}
 	}
 
 }

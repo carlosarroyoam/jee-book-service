@@ -30,7 +30,7 @@ public class Book {
 	public static final String FIND_BY_ISBN = "Book.findByIsbn";
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name = "isbn", length = 17, nullable = false)
