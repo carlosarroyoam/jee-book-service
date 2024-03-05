@@ -49,8 +49,7 @@ public class BookService {
 	}
 
 	public BookResponse create(CreateBookRequest createBookRequest) {
-		boolean existsByIsbn = bookDao.findByIsbn(createBookRequest.getIsbn()).isPresent();
-		if (existsByIsbn) {
+		if (bookDao.findByIsbn(createBookRequest.getIsbn()).isPresent()) {
 			logger.warning(AppMessages.ISBN_ALREADY_EXISTS_EXCEPTION);
 			throw new BadRequestException(AppMessages.ISBN_ALREADY_EXISTS_EXCEPTION);
 		}
