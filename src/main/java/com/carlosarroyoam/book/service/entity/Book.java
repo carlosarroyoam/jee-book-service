@@ -25,7 +25,6 @@ import lombok.Data;
 @NamedQuery(name = Book.FIND_BY_ISBN, query = "SELECT b FROM Book b WHERE b.isbn = :isbn")
 @Data
 public class Book {
-
 	public static final String FIND_ALL = "Book.findAll";
 	public static final String FIND_BY_ISBN = "Book.findByIsbn";
 
@@ -57,5 +56,4 @@ public class Book {
 
 	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
-
 }

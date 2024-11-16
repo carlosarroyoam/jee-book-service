@@ -14,7 +14,6 @@ import com.carlosarroyoam.book.service.entity.Book;
 
 @ApplicationScoped
 public class BookDao {
-
 	@Inject
 	private Logger logger;
 
@@ -89,5 +88,4 @@ public class BookDao {
 			throw e;
 		}
 	}
-
 }

@@ -22,7 +22,6 @@ import com.carlosarroyoam.book.service.mapper.BookMapper;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
-
 	@Mock
 	private Logger logger;
 
@@ -44,5 +43,4 @@ class BookServiceTest {
 		assertThat(books, is(notNullValue()));
 		assertThat(books.size(), is(0));
 	}
-
 }

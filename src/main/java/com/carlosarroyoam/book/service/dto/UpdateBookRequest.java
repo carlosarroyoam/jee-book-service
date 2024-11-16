@@ -11,7 +11,6 @@ import lombok.Data;
 
 @Data
 public class UpdateBookRequest {
-
 	@NotBlank(message = "Title should not be blank")
 	@Size(min = 3, max = 128, message = "Title should be between 3 and 128")
 	private String title;
@@ -24,5 +23,4 @@ public class UpdateBookRequest {
 
 	@NotNull(message = "PublishedAt should not be null")
 	private LocalDate publishedAt;
-
 }

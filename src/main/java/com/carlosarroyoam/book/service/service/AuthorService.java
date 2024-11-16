@@ -17,7 +17,6 @@ import com.carlosarroyoam.book.service.mapper.BookMapper;
 
 @ApplicationScoped
 public class AuthorService {
-
 	@Inject
 	private Logger logger;
 
@@ -52,5 +51,4 @@ public class AuthorService {
 
 		return bookMapper.toDtos(authorById.getBooks());
 	}
-
 }

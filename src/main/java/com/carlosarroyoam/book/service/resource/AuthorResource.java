@@ -18,7 +18,6 @@ import com.carlosarroyoam.book.service.service.AuthorService;
 @Path("/authors")
 @ApplicationScoped
 public class AuthorResource {
-
 	@Inject
 	private AuthorService authorService;
 
@@ -44,5 +43,4 @@ public class AuthorResource {
 		List<BookResponse> books = authorService.findBooksByAuthorId(authorId);
 		return Response.ok(books).build();
 	}
-
 }

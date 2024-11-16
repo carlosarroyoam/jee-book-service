@@ -20,7 +20,6 @@ import lombok.Data;
 @NamedQuery(name = Author.FIND_ALL, query = "SELECT a FROM Author a")
 @Data
 public class Author {
-
 	public static final String FIND_ALL = "Author.findAll";
 
 	@Id
@@ -38,5 +37,4 @@ public class Author {
 
 	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
-
 }

@@ -11,7 +11,6 @@ import lombok.Data;
 
 @Data
 public class CreateBookRequest {
-
 	@NotBlank(message = "Isbn should not be blank")
 	@Size(min = 10, max = 17, message = "Isbn should be between 10 and 17")
 	private String isbn;
@@ -28,5 +27,4 @@ public class CreateBookRequest {
 
 	@NotNull(message = "PublishedAt should not be null")
 	private LocalDate publishedAt;
-
 }

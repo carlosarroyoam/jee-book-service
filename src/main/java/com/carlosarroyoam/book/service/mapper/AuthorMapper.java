@@ -12,9 +12,7 @@ import com.carlosarroyoam.book.service.entity.Author;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.JSR330, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AuthorMapper {
-
 	AuthorResponse toDto(Author author);
 
 	List<AuthorResponse> toDtos(List<Author> authors);
-
 }

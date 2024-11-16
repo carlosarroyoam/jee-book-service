@@ -14,7 +14,6 @@ import com.carlosarroyoam.book.service.entity.Author;
 
 @ApplicationScoped
 public class AuthorDao {
-
 	@Inject
 	private Logger logger;
 
@@ -32,5 +31,4 @@ public class AuthorDao {
 		Author authorById = entityManager.find(Author.class, authorId);
 		return Optional.ofNullable(authorById);
 	}
-
 }
