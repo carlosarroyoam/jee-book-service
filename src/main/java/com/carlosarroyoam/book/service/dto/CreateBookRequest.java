@@ -5,9 +5,15 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CreateBookRequest {
   @NotBlank(message = "Isbn should not be blank")
   @Size(min = 10, max = 17, message = "Isbn should be between 10 and 17")

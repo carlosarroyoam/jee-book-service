@@ -5,9 +5,15 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UpdateBookRequest {
   @NotBlank(message = "Title should not be blank")
   @Size(min = 3, max = 128, message = "Title should be between 3 and 128")
