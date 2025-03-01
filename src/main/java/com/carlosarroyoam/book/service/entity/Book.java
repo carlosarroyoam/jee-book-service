@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
 import lombok.Data;
 
 @Entity
@@ -25,35 +23,35 @@ import lombok.Data;
 @NamedQuery(name = Book.FIND_BY_ISBN, query = "SELECT b FROM Book b WHERE b.isbn = :isbn")
 @Data
 public class Book {
-	public static final String FIND_ALL = "Book.findAll";
-	public static final String FIND_BY_ISBN = "Book.findByIsbn";
+  public static final String FIND_ALL = "Book.findAll";
+  public static final String FIND_BY_ISBN = "Book.findByIsbn";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	@Column(name = "isbn", length = 17, nullable = false, unique = true)
-	private String isbn;
+  @Column(name = "isbn", length = 17, nullable = false, unique = true)
+  private String isbn;
 
-	@Column(name = "title", length = 128, nullable = false)
-	private String title;
+  @Column(name = "title", length = 128, nullable = false)
+  private String title;
 
-	@Column(name = "price", nullable = false)
-	private BigDecimal price;
+  @Column(name = "price", nullable = false)
+  private BigDecimal price;
 
-	@Column(name = "is_available_online", nullable = false)
-	private Boolean isAvailableOnline;
+  @Column(name = "is_available_online", nullable = false)
+  private Boolean isAvailableOnline;
 
-	@ManyToMany
-	@JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
-	private List<Author> authors = new ArrayList<>();
+  @ManyToMany
+  @JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+  private List<Author> authors = new ArrayList<>();
 
-	@Column(name = "published_at", nullable = false)
-	private LocalDate publishedAt;
+  @Column(name = "published_at", nullable = false)
+  private LocalDate publishedAt;
 
-	@Column(name = "created_at", nullable = false)
-	private LocalDateTime createdAt;
+  @Column(name = "created_at", nullable = false)
+  private LocalDateTime createdAt;
 
-	@Column(name = "updated_at", nullable = false)
-	private LocalDateTime updatedAt;
+  @Column(name = "updated_at", nullable = false)
+  private LocalDateTime updatedAt;
 }
