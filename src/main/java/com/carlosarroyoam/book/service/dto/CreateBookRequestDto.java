@@ -14,7 +14,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UpdateBookRequest {
+public class CreateBookRequestDto {
+  @NotBlank(message = "Isbn should not be blank")
+  @Size(min = 10, max = 17, message = "Isbn should be between 10 and 17")
+  private String isbn;
+
   @NotBlank(message = "Title should not be blank")
   @Size(min = 3, max = 128, message = "Title should be between 3 and 128")
   private String title;

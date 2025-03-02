@@ -1,7 +1,7 @@
 package com.carlosarroyoam.book.service.resource;
 
-import com.carlosarroyoam.book.service.dto.AuthorResponse;
-import com.carlosarroyoam.book.service.dto.BookResponse;
+import com.carlosarroyoam.book.service.dto.AuthorDto;
+import com.carlosarroyoam.book.service.dto.BookDto;
 import com.carlosarroyoam.book.service.service.AuthorService;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
@@ -22,7 +22,7 @@ public class AuthorResource {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public Response findAll() {
-    List<AuthorResponse> authors = authorService.findAll();
+    List<AuthorDto> authors = authorService.findAll();
     return Response.ok(authors).build();
   }
 
@@ -30,7 +30,7 @@ public class AuthorResource {
   @Path("/{authorId}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findByIsbn(@PathParam("authorId") Long authorId) {
-    AuthorResponse authorById = authorService.findById(authorId);
+    AuthorDto authorById = authorService.findById(authorId);
     return Response.ok(authorById).build();
   }
 
@@ -38,7 +38,7 @@ public class AuthorResource {
   @Path("/{authorId}/books")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findBookAuthors(@PathParam("authorId") Long authorId) {
-    List<BookResponse> books = authorService.findBooksByAuthorId(authorId);
+    List<BookDto> books = authorService.findBooksByAuthorId(authorId);
     return Response.ok(books).build();
   }
 }

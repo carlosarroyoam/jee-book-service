@@ -6,7 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
 import com.carlosarroyoam.book.service.dao.BookDao;
-import com.carlosarroyoam.book.service.dto.BookResponse;
+import com.carlosarroyoam.book.service.dto.BookDto;
 import com.carlosarroyoam.book.service.mapper.BookMapper;
 import java.util.Collections;
 import java.util.List;
@@ -36,7 +36,7 @@ class BookServiceTest {
   void shouldReturnListOfUsers() {
     when(bookDao.findAll()).thenReturn(Collections.emptyList());
 
-    List<BookResponse> books = bookService.findAll();
+    List<BookDto> books = bookService.findAll();
 
     assertThat(books, is(notNullValue()));
     assertThat(books.size(), is(0));

@@ -1,9 +1,9 @@
 package com.carlosarroyoam.book.service.resource;
 
-import com.carlosarroyoam.book.service.dto.AuthorResponse;
-import com.carlosarroyoam.book.service.dto.BookResponse;
-import com.carlosarroyoam.book.service.dto.CreateBookRequest;
-import com.carlosarroyoam.book.service.dto.UpdateBookRequest;
+import com.carlosarroyoam.book.service.dto.AuthorDto;
+import com.carlosarroyoam.book.service.dto.BookDto;
+import com.carlosarroyoam.book.service.dto.CreateBookRequestDto;
+import com.carlosarroyoam.book.service.dto.UpdateBookRequestDto;
 import com.carlosarroyoam.book.service.service.BookService;
 import java.net.URI;
 import java.util.List;
@@ -31,7 +31,7 @@ public class BookResource {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public Response findAll() {
-    List<BookResponse> books = bookService.findAll();
+    List<BookDto> books = bookService.findAll();
     return Response.ok(books).build();
   }
 
@@ -39,14 +39,14 @@ public class BookResource {
   @Path("/{bookId}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findById(@PathParam("bookId") Long bookId) {
-    BookResponse bookById = bookService.findById(bookId);
+    BookDto bookById = bookService.findById(bookId);
     return Response.ok(bookById).build();
   }
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response store(@Valid CreateBookRequest createBookRequest) {
-    BookResponse createdBook = bookService.create(createBookRequest);
+  public Response store(@Valid CreateBookRequestDto requestDto) {
+    BookDto createdBook = bookService.create(requestDto);
     URI locationUri = UriBuilder.fromResource(BookResource.class)
         .path("/{bookId}")
         .resolveTemplate("bookId", createdBook.getId())
@@ -57,9 +57,8 @@ public class BookResource {
   @PUT
   @Path("/{bookId}")
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response update(@PathParam("bookId") Long bookId,
-      @Valid UpdateBookRequest updateBookRequest) {
-    bookService.update(bookId, updateBookRequest);
+  public Response update(@PathParam("bookId") Long bookId, @Valid UpdateBookRequestDto requestDto) {
+    bookService.update(bookId, requestDto);
     return Response.noContent().build();
   }
 
@@ -74,7 +73,7 @@ public class BookResource {
   @Path("/{bookId}/authors")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findBookAuthors(@PathParam("bookId") Long bookId) {
-    List<AuthorResponse> authors = bookService.findAuthorsByBookId(bookId);
+    List<AuthorDto> authors = bookService.findAuthorsByBookId(bookId);
     return Response.ok(authors).build();
   }
 }

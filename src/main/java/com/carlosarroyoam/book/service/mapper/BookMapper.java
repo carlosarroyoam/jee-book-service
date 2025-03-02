@@ -1,7 +1,7 @@
 package com.carlosarroyoam.book.service.mapper;
 
-import com.carlosarroyoam.book.service.dto.BookResponse;
-import com.carlosarroyoam.book.service.dto.CreateBookRequest;
+import com.carlosarroyoam.book.service.dto.BookDto;
+import com.carlosarroyoam.book.service.dto.CreateBookRequestDto;
 import com.carlosarroyoam.book.service.entity.Book;
 import java.util.List;
 import org.mapstruct.Mapper;
@@ -11,9 +11,9 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.JSR330, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = AuthorMapper.class)
 public interface BookMapper {
-  BookResponse toDto(Book book);
+  BookDto toDto(Book book);
 
-  List<BookResponse> toDtos(List<Book> books);
+  List<BookDto> toDtos(List<Book> books);
 
-  Book toEntity(CreateBookRequest createBookRequest);
+  Book toEntity(CreateBookRequestDto requestDto);
 }
