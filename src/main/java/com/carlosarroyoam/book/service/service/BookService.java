@@ -3,12 +3,12 @@ package com.carlosarroyoam.book.service.service;
 import com.carlosarroyoam.book.service.constant.AppMessages;
 import com.carlosarroyoam.book.service.dao.BookDao;
 import com.carlosarroyoam.book.service.dto.AuthorDto;
+import com.carlosarroyoam.book.service.dto.AuthorDto.AuthorDtoMapper;
 import com.carlosarroyoam.book.service.dto.BookDto;
+import com.carlosarroyoam.book.service.dto.BookDto.BookDtoMapper;
 import com.carlosarroyoam.book.service.dto.CreateBookRequestDto;
 import com.carlosarroyoam.book.service.dto.UpdateBookRequestDto;
 import com.carlosarroyoam.book.service.entity.Book;
-import com.carlosarroyoam.book.service.mapper.AuthorMapper;
-import com.carlosarroyoam.book.service.mapper.BookMapper;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
@@ -25,15 +25,9 @@ public class BookService {
   @Inject
   private BookDao bookDao;
 
-  @Inject
-  private BookMapper bookMapper;
-
-  @Inject
-  private AuthorMapper authorMapper;
-
   public List<BookDto> findAll() {
     List<Book> books = bookDao.findAll();
-    return bookMapper.toDtos(books);
+    return BookDtoMapper.INSTANCE.toDtos(books);
   }
 
   public BookDto findById(Long bookId) {
@@ -42,7 +36,7 @@ public class BookService {
       throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
     });
 
-    return bookMapper.toDto(bookById);
+    return BookDtoMapper.INSTANCE.toDto(bookById);
   }
 
   public BookDto create(CreateBookRequestDto requestDto) {
@@ -52,12 +46,12 @@ public class BookService {
     }
 
     LocalDateTime now = LocalDateTime.now();
-    Book book = bookMapper.toEntity(requestDto);
+    Book book = BookDtoMapper.INSTANCE.toEntity(requestDto);
     book.setCreatedAt(now);
     book.setUpdatedAt(now);
 
     bookDao.create(book);
-    return bookMapper.toDto(book);
+    return BookDtoMapper.INSTANCE.toDto(book);
   }
 
   public void update(Long bookId, UpdateBookRequestDto requestDto) {
@@ -90,6 +84,6 @@ public class BookService {
       throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
     });
 
-    return authorMapper.toDtos(bookById.getAuthors());
+    return AuthorDtoMapper.INSTANCE.toDtos(bookById.getAuthors());
   }
 }

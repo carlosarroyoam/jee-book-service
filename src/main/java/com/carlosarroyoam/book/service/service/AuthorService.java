@@ -3,10 +3,10 @@ package com.carlosarroyoam.book.service.service;
 import com.carlosarroyoam.book.service.constant.AppMessages;
 import com.carlosarroyoam.book.service.dao.AuthorDao;
 import com.carlosarroyoam.book.service.dto.AuthorDto;
+import com.carlosarroyoam.book.service.dto.AuthorDto.AuthorDtoMapper;
 import com.carlosarroyoam.book.service.dto.BookDto;
+import com.carlosarroyoam.book.service.dto.BookDto.BookDtoMapper;
 import com.carlosarroyoam.book.service.entity.Author;
-import com.carlosarroyoam.book.service.mapper.AuthorMapper;
-import com.carlosarroyoam.book.service.mapper.BookMapper;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
@@ -21,15 +21,9 @@ public class AuthorService {
   @Inject
   private AuthorDao authorDao;
 
-  @Inject
-  private AuthorMapper authorMapper;
-
-  @Inject
-  private BookMapper bookMapper;
-
   public List<AuthorDto> findAll() {
     List<Author> authors = authorDao.findAll();
-    return authorMapper.toDtos(authors);
+    return AuthorDtoMapper.INSTANCE.toDtos(authors);
   }
 
   public AuthorDto findById(Long authorId) {
@@ -38,7 +32,7 @@ public class AuthorService {
       throw new NotFoundException(String.format(AppMessages.AUTHOR_NOT_FOUND_WITH_ID, authorId));
     });
 
-    return authorMapper.toDto(authorById);
+    return AuthorDtoMapper.INSTANCE.toDto(authorById);
   }
 
   public List<BookDto> findBooksByAuthorId(Long authorId) {
@@ -47,6 +41,6 @@ public class AuthorService {
       throw new NotFoundException(String.format(AppMessages.AUTHOR_NOT_FOUND_WITH_ID, authorId));
     });
 
-    return bookMapper.toDtos(authorById.getBooks());
+    return BookDtoMapper.INSTANCE.toDtos(authorById.getBooks());
   }
 }

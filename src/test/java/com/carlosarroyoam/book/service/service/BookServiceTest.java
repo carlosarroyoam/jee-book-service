@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import com.carlosarroyoam.book.service.dao.BookDao;
 import com.carlosarroyoam.book.service.dto.BookDto;
-import com.carlosarroyoam.book.service.mapper.BookMapper;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,16 +14,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
   @Mock
   private Logger logger;
-
-  @Spy
-  private BookMapper bookMapper;
 
   @Mock
   private BookDao bookDao;
