@@ -2,8 +2,10 @@ package com.carlosarroyoam.book.service.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CreateBookRequestDto {
-  @NotBlank(message = "Isbn should not be blank")
+  @NotBlank(message = "ISBN should not be blank")
   @Size(min = 10, max = 17, message = "Isbn should be between 10 and 17")
   private String isbn;
 
@@ -24,11 +26,13 @@ public class CreateBookRequestDto {
   private String title;
 
   @NotNull(message = "Price should not be null")
+  @Digits(integer = 5, fraction = 2, message = "Price should have max 5 integral digits and max 2 fractional digits")
   private BigDecimal price;
 
   @NotNull(message = "IsAvailableOnline should not be null")
   private Boolean isAvailableOnline;
 
   @NotNull(message = "PublishedAt should not be null")
+  @PastOrPresent(message = "PublishedAt should be a date in past or present")
   private LocalDate publishedAt;
 }
