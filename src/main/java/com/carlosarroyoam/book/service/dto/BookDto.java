@@ -2,6 +2,7 @@ package com.carlosarroyoam.book.service.dto;
 
 import com.carlosarroyoam.book.service.dto.AuthorDto.AuthorDtoMapper;
 import com.carlosarroyoam.book.service.entity.Book;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,7 +24,7 @@ public class BookDto {
   private String isbn;
   private String title;
   private List<AuthorDto> authors;
-  private Double price;
+  private BigDecimal price;
   private Boolean isAvailableOnline;
   private LocalDate publishedAt;
   private LocalDateTime createdAt;
