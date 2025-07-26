@@ -12,8 +12,8 @@ the following link.
 [Configuring the GlassFish Server in Eclipse](https://www.baeldung.com/eclipse-glassfish-setup)
 
 # Build
-mvn clean package && docker build -t com.carlosarroyoam/jee-book-service:latest .
+mvn clean package && docker build -t com.carlosarroyoam/jee-book-service:1.0-SNAPSHOT .
 
 # Run
 docker container rm -f jee-book-service || true &&
-docker container run -dp 8080:8080 -p 4848:4848 --name jee-book-service com.carlosarroyoam/jee-book-service:latest
+docker container run -dp 8080:8080 -p 4848:4848 --name jee-book-service com.carlosarroyoam/jee-book-service:1.0-SNAPSHOT
