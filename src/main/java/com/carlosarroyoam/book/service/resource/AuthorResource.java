@@ -16,8 +16,7 @@ import javax.ws.rs.core.Response;
 @Path("/authors")
 @ApplicationScoped
 public class AuthorResource {
-  @Inject
-  private AuthorService authorService;
+  @Inject private AuthorService authorService;
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)

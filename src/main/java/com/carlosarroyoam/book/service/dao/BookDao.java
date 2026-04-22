@@ -12,11 +12,9 @@ import javax.persistence.TypedQuery;
 
 @ApplicationScoped
 public class BookDao {
-  @Inject
-  private Logger logger;
+  @Inject private Logger logger;
 
-  @Inject
-  private EntityManager entityManager;
+  @Inject private EntityManager entityManager;
 
   public List<Book> findAll() {
     logger.info("Find all books");

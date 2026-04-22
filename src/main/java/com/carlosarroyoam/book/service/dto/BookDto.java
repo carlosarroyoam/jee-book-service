@@ -30,7 +30,10 @@ public class BookDto {
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
-  @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = AuthorDtoMapper.class)
+  @Mapper(
+      nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+      unmappedTargetPolicy = ReportingPolicy.IGNORE,
+      uses = AuthorDtoMapper.class)
   public interface BookDtoMapper {
     BookDtoMapper INSTANCE = Mappers.getMapper(BookDtoMapper.class);
 

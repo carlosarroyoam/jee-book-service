@@ -25,8 +25,7 @@ import javax.ws.rs.core.UriBuilder;
 @Path("/books")
 @ApplicationScoped
 public class BookResource {
-  @Inject
-  private BookService bookService;
+  @Inject private BookService bookService;
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
@@ -47,10 +46,11 @@ public class BookResource {
   @Consumes(MediaType.APPLICATION_JSON)
   public Response store(@Valid CreateBookRequestDto requestDto) {
     BookDto createdBook = bookService.create(requestDto);
-    URI locationUri = UriBuilder.fromResource(BookResource.class)
-        .path("/{bookId}")
-        .resolveTemplate("bookId", createdBook.getId())
-        .build();
+    URI locationUri =
+        UriBuilder.fromResource(BookResource.class)
+            .path("/{bookId}")
+            .resolveTemplate("bookId", createdBook.getId())
+            .build();
     return Response.created(locationUri).build();
   }
 

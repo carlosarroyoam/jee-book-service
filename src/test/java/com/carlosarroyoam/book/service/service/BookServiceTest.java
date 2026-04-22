@@ -18,14 +18,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
-  @Mock
-  private Logger logger;
+  @Mock private Logger logger;
 
-  @Mock
-  private BookDao bookDao;
+  @Mock private BookDao bookDao;
 
-  @InjectMocks
-  private BookService bookService;
+  @InjectMocks private BookService bookService;
 
   @Test
   void shouldReturnListOfUsers() {

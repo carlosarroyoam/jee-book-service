@@ -19,11 +19,9 @@ import javax.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class BookService {
-  @Inject
-  private Logger logger;
+  @Inject private Logger logger;
 
-  @Inject
-  private BookDao bookDao;
+  @Inject private BookDao bookDao;
 
   public List<BookDto> findAll() {
     List<Book> books = bookDao.findAll();
@@ -31,10 +29,15 @@ public class BookService {
   }
 
   public BookDto findById(Long bookId) {
-    Book bookById = bookDao.findById(bookId).orElseThrow(() -> {
-      logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
-      throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
-    });
+    Book bookById =
+        bookDao
+            .findById(bookId)
+            .orElseThrow(
+                () -> {
+                  logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
+                  throw new NotFoundException(
+                      String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
+                });
 
     return BookDtoMapper.INSTANCE.toDto(bookById);
   }
@@ -55,10 +58,15 @@ public class BookService {
   }
 
   public void update(Long bookId, UpdateBookRequestDto requestDto) {
-    Book bookById = bookDao.findById(bookId).orElseThrow(() -> {
-      logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
-      throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
-    });
+    Book bookById =
+        bookDao
+            .findById(bookId)
+            .orElseThrow(
+                () -> {
+                  logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
+                  throw new NotFoundException(
+                      String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
+                });
 
     bookById.setTitle(requestDto.getTitle());
     bookById.setPrice(requestDto.getPrice());
@@ -70,19 +78,29 @@ public class BookService {
   }
 
   public void deleteById(Long bookId) {
-    Book bookById = bookDao.findById(bookId).orElseThrow(() -> {
-      logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
-      throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
-    });
+    Book bookById =
+        bookDao
+            .findById(bookId)
+            .orElseThrow(
+                () -> {
+                  logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
+                  throw new NotFoundException(
+                      String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
+                });
 
     bookDao.deleteById(bookById.getId());
   }
 
   public List<AuthorDto> findAuthorsByBookId(Long bookId) {
-    Book bookById = bookDao.findById(bookId).orElseThrow(() -> {
-      logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
-      throw new NotFoundException(String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
-    });
+    Book bookById =
+        bookDao
+            .findById(bookId)
+            .orElseThrow(
+                () -> {
+                  logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
+                  throw new NotFoundException(
+                      String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
+                });
 
     return AuthorDtoMapper.INSTANCE.toDtos(bookById.getAuthors());
   }

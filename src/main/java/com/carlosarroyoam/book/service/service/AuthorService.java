@@ -15,11 +15,9 @@ import javax.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class AuthorService {
-  @Inject
-  private Logger logger;
+  @Inject private Logger logger;
 
-  @Inject
-  private AuthorDao authorDao;
+  @Inject private AuthorDao authorDao;
 
   public List<AuthorDto> findAll() {
     List<Author> authors = authorDao.findAll();
@@ -27,19 +25,29 @@ public class AuthorService {
   }
 
   public AuthorDto findById(Long authorId) {
-    Author authorById = authorDao.findById(authorId).orElseThrow(() -> {
-      logger.warning(AppMessages.AUTHOR_NOT_FOUND_EXCEPTION);
-      throw new NotFoundException(String.format(AppMessages.AUTHOR_NOT_FOUND_WITH_ID, authorId));
-    });
+    Author authorById =
+        authorDao
+            .findById(authorId)
+            .orElseThrow(
+                () -> {
+                  logger.warning(AppMessages.AUTHOR_NOT_FOUND_EXCEPTION);
+                  throw new NotFoundException(
+                      String.format(AppMessages.AUTHOR_NOT_FOUND_WITH_ID, authorId));
+                });
 
     return AuthorDtoMapper.INSTANCE.toDto(authorById);
   }
 
   public List<BookDto> findBooksByAuthorId(Long authorId) {
-    Author authorById = authorDao.findById(authorId).orElseThrow(() -> {
-      logger.warning(AppMessages.AUTHOR_NOT_FOUND_EXCEPTION);
-      throw new NotFoundException(String.format(AppMessages.AUTHOR_NOT_FOUND_WITH_ID, authorId));
-    });
+    Author authorById =
+        authorDao
+            .findById(authorId)
+            .orElseThrow(
+                () -> {
+                  logger.warning(AppMessages.AUTHOR_NOT_FOUND_EXCEPTION);
+                  throw new NotFoundException(
+                      String.format(AppMessages.AUTHOR_NOT_FOUND_WITH_ID, authorId));
+                });
 
     return BookDtoMapper.INSTANCE.toDtos(authorById.getBooks());
   }
