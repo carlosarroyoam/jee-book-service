@@ -17,8 +17,8 @@ public class EntityManagerProducer {
 
   @PostConstruct
   public void init() {
-    entityManagerFactory = Persistence
-        .createEntityManagerFactory("com.carlosarroyoam.book-service");
+    entityManagerFactory =
+        Persistence.createEntityManagerFactory("com.carlosarroyoam.book-service");
   }
 
   @PreDestroy
