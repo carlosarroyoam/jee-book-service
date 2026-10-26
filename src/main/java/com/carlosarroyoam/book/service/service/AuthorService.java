@@ -1,6 +1,6 @@
 package com.carlosarroyoam.book.service.service;
 
-import com.carlosarroyoam.book.service.constant.AppMessages;
+import com.carlosarroyoam.book.service.constant.MessageConstants;
 import com.carlosarroyoam.book.service.dao.AuthorDao;
 import com.carlosarroyoam.book.service.dto.AuthorDto;
 import com.carlosarroyoam.book.service.dto.AuthorDto.AuthorDtoMapper;
@@ -30,9 +30,9 @@ public class AuthorService {
             .findById(authorId)
             .orElseThrow(
                 () -> {
-                  logger.warning(AppMessages.AUTHOR_NOT_FOUND_EXCEPTION);
+                  logger.warning(MessageConstants.AUTHOR_NOT_FOUND_EXCEPTION);
                   throw new NotFoundException(
-                      String.format(AppMessages.AUTHOR_NOT_FOUND_WITH_ID, authorId));
+                      String.format(MessageConstants.AUTHOR_NOT_FOUND_WITH_ID, authorId));
                 });
 
     return AuthorDtoMapper.INSTANCE.toDto(authorById);
@@ -44,9 +44,9 @@ public class AuthorService {
             .findById(authorId)
             .orElseThrow(
                 () -> {
-                  logger.warning(AppMessages.AUTHOR_NOT_FOUND_EXCEPTION);
+                  logger.warning(MessageConstants.AUTHOR_NOT_FOUND_EXCEPTION);
                   throw new NotFoundException(
-                      String.format(AppMessages.AUTHOR_NOT_FOUND_WITH_ID, authorId));
+                      String.format(MessageConstants.AUTHOR_NOT_FOUND_WITH_ID, authorId));
                 });
 
     return BookDtoMapper.INSTANCE.toDtos(authorById.getBooks());

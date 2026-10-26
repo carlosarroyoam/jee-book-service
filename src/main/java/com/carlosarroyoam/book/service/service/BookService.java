@@ -1,6 +1,6 @@
 package com.carlosarroyoam.book.service.service;
 
-import com.carlosarroyoam.book.service.constant.AppMessages;
+import com.carlosarroyoam.book.service.constant.MessageConstants;
 import com.carlosarroyoam.book.service.dao.BookDao;
 import com.carlosarroyoam.book.service.dto.AuthorDto;
 import com.carlosarroyoam.book.service.dto.AuthorDto.AuthorDtoMapper;
@@ -34,9 +34,9 @@ public class BookService {
             .findById(bookId)
             .orElseThrow(
                 () -> {
-                  logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
+                  logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
                   throw new NotFoundException(
-                      String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
+                      String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
                 });
 
     return BookDtoMapper.INSTANCE.toDto(bookById);
@@ -44,8 +44,8 @@ public class BookService {
 
   public BookDto create(CreateBookRequestDto requestDto) {
     if (bookDao.findByIsbn(requestDto.getIsbn()).isPresent()) {
-      logger.warning(AppMessages.ISBN_ALREADY_EXISTS_EXCEPTION);
-      throw new BadRequestException(AppMessages.ISBN_ALREADY_EXISTS_EXCEPTION);
+      logger.warning(MessageConstants.ISBN_ALREADY_EXISTS_EXCEPTION);
+      throw new BadRequestException(MessageConstants.ISBN_ALREADY_EXISTS_EXCEPTION);
     }
 
     LocalDateTime now = LocalDateTime.now();
@@ -63,9 +63,9 @@ public class BookService {
             .findById(bookId)
             .orElseThrow(
                 () -> {
-                  logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
+                  logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
                   throw new NotFoundException(
-                      String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
+                      String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
                 });
 
     bookById.setTitle(requestDto.getTitle());
@@ -83,9 +83,9 @@ public class BookService {
             .findById(bookId)
             .orElseThrow(
                 () -> {
-                  logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
+                  logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
                   throw new NotFoundException(
-                      String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
+                      String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
                 });
 
     bookDao.deleteById(bookById.getId());
@@ -97,9 +97,9 @@ public class BookService {
             .findById(bookId)
             .orElseThrow(
                 () -> {
-                  logger.warning(AppMessages.BOOK_NOT_FOUND_EXCEPTION);
+                  logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
                   throw new NotFoundException(
-                      String.format(AppMessages.BOOK_NOT_FOUND_WITH_ID, bookId));
+                      String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
                 });
 
     return AuthorDtoMapper.INSTANCE.toDtos(bookById.getAuthors());
