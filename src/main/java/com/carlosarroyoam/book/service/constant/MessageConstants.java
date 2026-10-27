@@ -9,6 +9,6 @@ public class MessageConstants {
   public static final String AUTHOR_NOT_FOUND_WITH_ID = "Author with id: %s was not found";
 
   private MessageConstants() {
-    throw new IllegalAccessError(CommonConstants.ILLEGAL_ACCESS_EXCEPTION);
+    throw new IllegalAccessError(CommonConstants.ILLEGAL_ACCESS_ERROR);
   }
 }
