@@ -28,12 +28,11 @@ public class AuthorService {
     Author authorById =
         authorDao
             .findById(authorId)
-            .orElseThrow(
-                () -> {
-                  logger.warning(MessageConstants.AUTHOR_NOT_FOUND_EXCEPTION);
-                  throw new NotFoundException(
-                      String.format(MessageConstants.AUTHOR_NOT_FOUND_WITH_ID, authorId));
-                });
+            .orElseThrow(() -> {
+              logger.warning(MessageConstants.AUTHOR_NOT_FOUND_EXCEPTION);
+              return new NotFoundException(
+                  String.format(MessageConstants.AUTHOR_NOT_FOUND_WITH_ID, authorId));
+            });
 
     return AuthorDtoMapper.INSTANCE.toDto(authorById);
   }
@@ -42,12 +41,11 @@ public class AuthorService {
     Author authorById =
         authorDao
             .findById(authorId)
-            .orElseThrow(
-                () -> {
-                  logger.warning(MessageConstants.AUTHOR_NOT_FOUND_EXCEPTION);
-                  throw new NotFoundException(
-                      String.format(MessageConstants.AUTHOR_NOT_FOUND_WITH_ID, authorId));
-                });
+            .orElseThrow(() -> {
+              logger.warning(MessageConstants.AUTHOR_NOT_FOUND_EXCEPTION);
+              return new NotFoundException(
+                  String.format(MessageConstants.AUTHOR_NOT_FOUND_WITH_ID, authorId));
+            });
 
     return BookDtoMapper.INSTANCE.toDtos(authorById.getBooks());
   }

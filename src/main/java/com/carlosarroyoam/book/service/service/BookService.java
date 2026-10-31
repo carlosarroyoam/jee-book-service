@@ -32,12 +32,11 @@ public class BookService {
     Book bookById =
         bookDao
             .findById(bookId)
-            .orElseThrow(
-                () -> {
-                  logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
-                  throw new NotFoundException(
-                      String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
-                });
+            .orElseThrow(() -> {
+              logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
+              return new NotFoundException(
+                  String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
+            });
 
     return BookDtoMapper.INSTANCE.toDto(bookById);
   }
@@ -61,12 +60,11 @@ public class BookService {
     Book bookById =
         bookDao
             .findById(bookId)
-            .orElseThrow(
-                () -> {
-                  logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
-                  throw new NotFoundException(
-                      String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
-                });
+            .orElseThrow(() -> {
+              logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
+              return new NotFoundException(
+                  String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
+            });
 
     bookById.setTitle(requestDto.getTitle());
     bookById.setPrice(requestDto.getPrice());
@@ -81,12 +79,11 @@ public class BookService {
     Book bookById =
         bookDao
             .findById(bookId)
-            .orElseThrow(
-                () -> {
-                  logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
-                  throw new NotFoundException(
-                      String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
-                });
+            .orElseThrow(() -> {
+              logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
+              return new NotFoundException(
+                  String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
+            });
 
     bookDao.deleteById(bookById.getId());
   }
@@ -95,12 +92,11 @@ public class BookService {
     Book bookById =
         bookDao
             .findById(bookId)
-            .orElseThrow(
-                () -> {
-                  logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
-                  throw new NotFoundException(
-                      String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
-                });
+            .orElseThrow(() -> {
+              logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
+              return new NotFoundException(
+                  String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
+            });
 
     return AuthorDtoMapper.INSTANCE.toDtos(bookById.getAuthors());
   }
