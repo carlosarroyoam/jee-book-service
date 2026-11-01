@@ -9,6 +9,7 @@ import com.carlosarroyoam.book.service.dto.BookDto.BookDtoMapper;
 import com.carlosarroyoam.book.service.dto.CreateBookRequestDto;
 import com.carlosarroyoam.book.service.dto.UpdateBookRequestDto;
 import com.carlosarroyoam.book.service.entity.Book;
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
@@ -19,9 +20,9 @@ import javax.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class BookService {
-  @Inject private Logger logger;
-
   @Inject private BookDao bookDao;
+  @Inject private Logger logger;
+  @Inject private Clock clock;
 
   public List<BookDto> findAll() {
     List<Book> books = bookDao.findAll();
@@ -47,12 +48,12 @@ public class BookService {
       throw new BadRequestException(MessageConstants.ISBN_ALREADY_EXISTS_EXCEPTION);
     }
 
-    LocalDateTime now = LocalDateTime.now();
+    LocalDateTime now = LocalDateTime.now(clock);
     Book book = BookDtoMapper.INSTANCE.toEntity(requestDto);
     book.setCreatedAt(now);
     book.setUpdatedAt(now);
-
     bookDao.create(book);
+
     return BookDtoMapper.INSTANCE.toDto(book);
   }
 
@@ -66,12 +67,12 @@ public class BookService {
                   String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
             });
 
+    LocalDateTime now = LocalDateTime.now(clock);
     bookById.setTitle(requestDto.getTitle());
     bookById.setPrice(requestDto.getPrice());
     bookById.setIsAvailableOnline(requestDto.getIsAvailableOnline());
     bookById.setPublishedAt(requestDto.getPublishedAt());
-    bookById.setUpdatedAt(LocalDateTime.now());
-
+    bookById.setUpdatedAt(now);
     bookDao.update(bookById);
   }
 
