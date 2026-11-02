@@ -17,6 +17,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entidad JPA que representa un autor persistida en la tabla {@code authors}, junto con los {@link
+ * Book libros} que ha escrito.
+ */
 @Entity
 @Table(name = "authors")
 @NamedQuery(name = Author.FIND_ALL, query = "SELECT a FROM Author a")

@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/** Representa los datos enviados para actualizar un libro existente. */
 @Getter
 @Setter
 @NoArgsConstructor

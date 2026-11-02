@@ -22,11 +22,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
+/** Expone los endpoints REST para administrar libros bajo {@code /books}. */
 @Path("/books")
 @ApplicationScoped
 public class BookResource {
   @Inject private BookService bookService;
 
+  /**
+   * Obtiene todos los libros mediante {@code GET /books}.
+   *
+   * @return la lista de {@link BookDto} y el estado 200 OK
+   */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public Response findAll() {
@@ -34,6 +40,12 @@ public class BookResource {
     return Response.ok(books).build();
   }
 
+  /**
+   * Busca un libro por su id mediante {@code GET /books/{bookId}}.
+   *
+   * @param bookId el id del libro
+   * @return el {@link BookDto} encontrado y el estado 200 OK
+   */
   @GET
   @Path("/{bookId}")
   @Produces(MediaType.APPLICATION_JSON)
@@ -42,6 +54,12 @@ public class BookResource {
     return Response.ok(bookById).build();
   }
 
+  /**
+   * Crea un libro mediante {@code POST /books}.
+   *
+   * @param requestDto los datos del libro a crear
+   * @return el estado 201 Created con la cabecera {@code Location} del libro creado
+   */
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public Response store(@Valid CreateBookRequestDto requestDto) {
@@ -54,6 +72,13 @@ public class BookResource {
     return Response.created(locationUri).build();
   }
 
+  /**
+   * Actualiza un libro mediante {@code PUT /books/{bookId}}.
+   *
+   * @param bookId el id del libro a actualizar
+   * @param requestDto los nuevos datos del libro
+   * @return el estado 204 No Content
+   */
   @PUT
   @Path("/{bookId}")
   @Consumes(MediaType.APPLICATION_JSON)
@@ -62,6 +87,12 @@ public class BookResource {
     return Response.noContent().build();
   }
 
+  /**
+   * Elimina un libro mediante {@code DELETE /books/{bookId}}.
+   *
+   * @param bookId el id del libro a eliminar
+   * @return el estado 204 No Content
+   */
   @DELETE
   @Path("/{bookId}")
   public Response deleteById(@PathParam("bookId") Long bookId) {
@@ -69,6 +100,12 @@ public class BookResource {
     return Response.noContent().build();
   }
 
+  /**
+   * Obtiene los autores de un libro mediante {@code GET /books/{bookId}/authors}.
+   *
+   * @param bookId el id del libro
+   * @return la lista de {@link AuthorDto} del libro y el estado 200 OK
+   */
   @GET
   @Path("/{bookId}/authors")
   @Produces(MediaType.APPLICATION_JSON)

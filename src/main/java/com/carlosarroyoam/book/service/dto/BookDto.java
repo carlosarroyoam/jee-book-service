@@ -14,6 +14,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
+/** Representa un libro expuesto por la API, incluyendo sus autores. */
 @Getter
 @Setter
 @Builder

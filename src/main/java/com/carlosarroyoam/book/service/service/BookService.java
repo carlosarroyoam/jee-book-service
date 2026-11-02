@@ -18,17 +18,30 @@ import javax.inject.Inject;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
+/** Lógica de negocio para consultar y administrar libros ({@link Book}) y sus autores. */
 @ApplicationScoped
 public class BookService {
-  @Inject private BookDao bookDao;
   @Inject private Logger logger;
+  @Inject private BookDao bookDao;
   @Inject private Clock clock;
 
+  /**
+   * Obtiene todos los libros.
+   *
+   * @return la lista de {@link BookDto} existentes
+   */
   public List<BookDto> findAll() {
     List<Book> books = bookDao.findAll();
     return BookDtoMapper.INSTANCE.toDtos(books);
   }
 
+  /**
+   * Busca un libro por su id.
+   *
+   * @param bookId el id del libro
+   * @return el {@link BookDto} encontrado
+   * @throws NotFoundException con 404 si no existe un libro con ese id
+   */
   public BookDto findById(Long bookId) {
     Book bookById =
         bookDao
@@ -42,6 +55,13 @@ public class BookService {
     return BookDtoMapper.INSTANCE.toDto(bookById);
   }
 
+  /**
+   * Crea un libro y registra sus fechas de creación y actualización.
+   *
+   * @param requestDto los datos del libro a crear
+   * @return el {@link BookDto} creado
+   * @throws BadRequestException con 400 si ya existe un libro con ese ISBN
+   */
   public BookDto create(CreateBookRequestDto requestDto) {
     if (bookDao.findByIsbn(requestDto.getIsbn()).isPresent()) {
       logger.warning(MessageConstants.ISBN_ALREADY_EXISTS_EXCEPTION);
@@ -57,6 +77,13 @@ public class BookService {
     return BookDtoMapper.INSTANCE.toDto(book);
   }
 
+  /**
+   * Actualiza el título, precio, disponibilidad en línea y fecha de publicación de un libro.
+   *
+   * @param bookId el id del libro a actualizar
+   * @param requestDto los nuevos datos del libro
+   * @throws NotFoundException con 404 si no existe un libro con ese id
+   */
   public void update(Long bookId, UpdateBookRequestDto requestDto) {
     Book bookById =
         bookDao
@@ -76,6 +103,12 @@ public class BookService {
     bookDao.update(bookById);
   }
 
+  /**
+   * Elimina un libro por su id.
+   *
+   * @param bookId el id del libro a eliminar
+   * @throws NotFoundException con 404 si no existe un libro con ese id
+   */
   public void deleteById(Long bookId) {
     Book bookById =
         bookDao
@@ -89,6 +122,13 @@ public class BookService {
     bookDao.deleteById(bookById.getId());
   }
 
+  /**
+   * Obtiene los autores de un libro.
+   *
+   * @param bookId el id del libro
+   * @return la lista de {@link AuthorDto} del libro
+   * @throws NotFoundException con 404 si no existe un libro con ese id
+   */
   public List<AuthorDto> findAuthorsByBookId(Long bookId) {
     Book bookById =
         bookDao

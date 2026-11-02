@@ -21,6 +21,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entidad JPA que representa un libro persistida en la tabla {@code books}: ISBN, título, precio,
+ * disponibilidad en línea, fecha de publicación y sus {@link Author autores}.
+ */
 @Entity
 @Table(name = "books")
 @NamedQuery(name = Book.FIND_ALL, query = "SELECT b FROM Book b")

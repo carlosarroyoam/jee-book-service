@@ -13,17 +13,29 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 
+/** Lógica de negocio para consultar autores ({@link Author}) y sus libros. */
 @ApplicationScoped
 public class AuthorService {
   @Inject private Logger logger;
-
   @Inject private AuthorDao authorDao;
 
+  /**
+   * Obtiene todos los autores.
+   *
+   * @return la lista de {@link AuthorDto} existentes
+   */
   public List<AuthorDto> findAll() {
     List<Author> authors = authorDao.findAll();
     return AuthorDtoMapper.INSTANCE.toDtos(authors);
   }
 
+  /**
+   * Busca un autor por su id.
+   *
+   * @param authorId el id del autor
+   * @return el {@link AuthorDto} encontrado
+   * @throws NotFoundException con 404 si no existe un autor con ese id
+   */
   public AuthorDto findById(Long authorId) {
     Author authorById =
         authorDao
@@ -37,6 +49,13 @@ public class AuthorService {
     return AuthorDtoMapper.INSTANCE.toDto(authorById);
   }
 
+  /**
+   * Obtiene los libros de un autor.
+   *
+   * @param authorId el id del autor
+   * @return la lista de {@link BookDto} escritos por el autor
+   * @throws NotFoundException con 404 si no existe un autor con ese id
+   */
   public List<BookDto> findBooksByAuthorId(Long authorId) {
     Author authorById =
         authorDao

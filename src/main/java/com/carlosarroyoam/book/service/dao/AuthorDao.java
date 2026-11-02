@@ -10,18 +10,29 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+/** Acceso a datos para la entidad {@link Author}. */
 @ApplicationScoped
 public class AuthorDao {
   @Inject private Logger logger;
-
   @Inject private EntityManager entityManager;
 
+  /**
+   * Obtiene todos los autores.
+   *
+   * @return la lista de {@link Author} existentes
+   */
   public List<Author> findAll() {
     logger.info("Find all authors");
     TypedQuery<Author> query = entityManager.createNamedQuery(Author.FIND_ALL, Author.class);
     return query.getResultList();
   }
 
+  /**
+   * Busca un autor por su id.
+   *
+   * @param authorId el id del autor
+   * @return el autor encontrado, o {@link Optional#empty()} si no existe ninguno con ese id
+   */
   public Optional<Author> findById(Long authorId) {
     logger.log(Level.INFO, "Find author with id: {0}", authorId);
     Author authorById = entityManager.find(Author.class, authorId);
