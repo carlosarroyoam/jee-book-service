@@ -15,6 +15,7 @@ import javax.persistence.TypedQuery;
 public class BookDao {
   @Inject private Logger logger;
   @Inject private EntityManager entityManager;
+  @Inject private TransactionExecutor transactionExecutor;
 
   /**
    * Obtiene todos los libros.
@@ -64,18 +65,8 @@ public class BookDao {
    * @param book el libro a persistir
    */
   public void create(Book book) {
-    try {
-      logger.log(Level.INFO, "Create book: {0}", book);
-      entityManager.getTransaction().begin();
-      entityManager.persist(book);
-      entityManager.getTransaction().commit();
-    } catch (Exception e) {
-      if (entityManager.getTransaction().isActive()) {
-        entityManager.getTransaction().rollback();
-      }
-
-      throw e;
-    }
+    logger.log(Level.INFO, "Create book: {0}", book);
+    transactionExecutor.run(() -> entityManager.persist(book));
   }
 
   /**
@@ -85,18 +76,8 @@ public class BookDao {
    * @param book el libro con los datos actualizados
    */
   public void update(Book book) {
-    try {
-      logger.log(Level.INFO, "Update book with isbn: {0}", book.getIsbn());
-      entityManager.getTransaction().begin();
-      entityManager.merge(book);
-      entityManager.getTransaction().commit();
-    } catch (Exception e) {
-      if (entityManager.getTransaction().isActive()) {
-        entityManager.getTransaction().rollback();
-      }
-
-      throw e;
-    }
+    logger.log(Level.INFO, "Update book with isbn: {0}", book.getIsbn());
+    transactionExecutor.run(() -> entityManager.merge(book));
   }
 
   /**
@@ -104,20 +85,19 @@ public class BookDao {
    * transacción y relanza la excepción.
    *
    * @param bookId el id del libro a eliminar
+   * @return {@code true} si el libro existía y fue eliminado, {@code false} si no existe ninguno
+   *     con ese id
    */
-  public void deleteById(Long bookId) {
-    try {
-      logger.log(Level.INFO, "Delete book with id: {0}", bookId);
-      entityManager.getTransaction().begin();
-      Book bookById = entityManager.getReference(Book.class, bookId);
-      entityManager.remove(bookById);
-      entityManager.getTransaction().commit();
-    } catch (Exception e) {
-      if (entityManager.getTransaction().isActive()) {
-        entityManager.getTransaction().rollback();
+  public boolean deleteById(Long bookId) {
+    logger.log(Level.INFO, "Delete book with id: {0}", bookId);
+    return transactionExecutor.call(() -> {
+      Book bookById = entityManager.find(Book.class, bookId);
+      if (bookById == null) {
+        return false;
       }
 
-      throw e;
-    }
+      entityManager.remove(bookById);
+      return true;
+    });
   }
 }

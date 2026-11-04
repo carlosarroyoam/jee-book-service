@@ -110,16 +110,10 @@ public class BookService {
    * @throws NotFoundException con 404 si no existe un libro con ese id
    */
   public void deleteById(Long bookId) {
-    Book bookById =
-        bookDao
-            .findById(bookId)
-            .orElseThrow(() -> {
-              logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
-              return new NotFoundException(
-                  String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
-            });
-
-    bookDao.deleteById(bookById.getId());
+    if (!bookDao.deleteById(bookId)) {
+      logger.warning(MessageConstants.BOOK_NOT_FOUND_EXCEPTION);
+      throw new NotFoundException(String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
+    }
   }
 
   /**
