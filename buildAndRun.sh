@@ -1,4 +1,18 @@
 #!/bin/sh
-docker build -t com.carlosarroyoam/jee-book-service:latest . && \
-docker container rm -f jee-book-service || true && \
-docker run -dp 8080:8080 -p 4848:4848 --name jee-book-service com.carlosarroyoam/jee-book-service:latest
+
+IMAGE="com.carlosarroyoam/jee-book-service"
+CONTAINER="jee-book-service"
+
+# Get the version from pom.xml
+VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+
+# If version is empty, exit
+if [ -z "$VERSION" ]; then
+  echo "ERROR: Could not retrieve project version."
+  exit 1
+fi
+
+# Build Docker image and run container
+docker build -t "$IMAGE:$VERSION" . || exit 1
+docker container rm -f "$CONTAINER" >/dev/null 2>&1 || true
+docker run --detach -p 8080:8080 -p 4848:4848 --name "$CONTAINER" "$IMAGE:$VERSION" || exit 1
