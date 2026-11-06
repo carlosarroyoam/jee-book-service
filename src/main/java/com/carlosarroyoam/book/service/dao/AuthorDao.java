@@ -1,14 +1,14 @@
 package com.carlosarroyoam.book.service.dao;
 
 import com.carlosarroyoam.book.service.entity.Author;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 /** Acceso a datos para la entidad {@link Author}. */
 @ApplicationScoped

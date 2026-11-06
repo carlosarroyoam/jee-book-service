@@ -7,11 +7,11 @@ import com.carlosarroyoam.book.service.dto.AuthorDto.AuthorDtoMapper;
 import com.carlosarroyoam.book.service.dto.BookDto;
 import com.carlosarroyoam.book.service.dto.BookDto.BookDtoMapper;
 import com.carlosarroyoam.book.service.entity.Author;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.NotFoundException;
 
 /** Lógica de negocio para consultar autores ({@link Author}) y sus libros. */
 @ApplicationScoped

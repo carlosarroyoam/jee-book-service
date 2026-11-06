@@ -1,10 +1,10 @@
 package com.carlosarroyoam.book.service.dao;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import java.util.function.Supplier;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 /**
  * Ejecuta operaciones de persistencia dentro de una transacción {@code RESOURCE_LOCAL}.
