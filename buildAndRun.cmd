@@ -18,7 +18,7 @@ if not defined VERSION (
 REM Build Docker image and run container
 docker build -t "%IMAGE%:%VERSION%" . || exit /b 1
 docker container rm -f "%CONTAINER%" >nul 2>&1
-docker run --detach -p 8080:8080 -p 4849:4848 --name "%CONTAINER%" "%IMAGE%:%VERSION%" || exit /b 1
+docker run --detach -p 8080:8080 -p 4848:4848 --name "%CONTAINER%" "%IMAGE%:%VERSION%" || exit /b 1
 
 endlocal
 exit /b 0
