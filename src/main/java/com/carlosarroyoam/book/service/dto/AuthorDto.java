@@ -29,6 +29,6 @@ public class AuthorDto {
 
     AuthorDto toDto(Author author);
 
-    List<AuthorDto> toDtos(List<Author> authors);
+    List<AuthorDto> toDtoList(List<Author> authors);
   }
 }

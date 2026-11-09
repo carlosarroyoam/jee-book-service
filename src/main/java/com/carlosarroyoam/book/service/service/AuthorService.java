@@ -26,7 +26,7 @@ public class AuthorService {
    */
   public List<AuthorDto> findAll() {
     List<Author> authors = authorDao.findAll();
-    return AuthorDtoMapper.INSTANCE.toDtos(authors);
+    return AuthorDtoMapper.INSTANCE.toDtoList(authors);
   }
 
   /**
@@ -66,6 +66,6 @@ public class AuthorService {
                   String.format(MessageConstants.AUTHOR_NOT_FOUND_WITH_ID, authorId));
             });
 
-    return BookDtoMapper.INSTANCE.toDtos(authorById.getBooks());
+    return BookDtoMapper.INSTANCE.toDtoList(authorById.getBooks());
   }
 }

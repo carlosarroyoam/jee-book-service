@@ -32,7 +32,7 @@ public class BookService {
    */
   public List<BookDto> findAll() {
     List<Book> books = bookDao.findAll();
-    return BookDtoMapper.INSTANCE.toDtos(books);
+    return BookDtoMapper.INSTANCE.toDtoList(books);
   }
 
   /**
@@ -133,6 +133,6 @@ public class BookService {
                   String.format(MessageConstants.BOOK_NOT_FOUND_WITH_ID, bookId));
             });
 
-    return AuthorDtoMapper.INSTANCE.toDtos(bookById.getAuthors());
+    return AuthorDtoMapper.INSTANCE.toDtoList(bookById.getAuthors());
   }
 }
